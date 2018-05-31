@@ -1,7 +1,7 @@
 const os = require('os')
 const fs = require('fs')
 
-const NUMBER_OF_TRUCKS = 9
+const NUMBER_OF_TRUCKS = 10
 
 const MIN_HEIGHT_TRUCK = 8
 const MIN_WIDTH_TRUCK = 8
