@@ -1,0 +1,20 @@
+
+pLength=6;
+tLength=3;
+capacityTruck=500;
+xTruck=15;
+yTruck=7;
+
+package_x=[1 7 5 6 9 9];
+package_y=[4 2 3 1 1 7];
+packageWeight=[192 48 37 225 84 420];
+
+incomp=[
+  [0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+
+];
