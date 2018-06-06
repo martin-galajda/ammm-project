@@ -63,9 +63,9 @@
                // specifically: pt[pOne][t] + pt[pTwo][t] gives 2 if they are in the same truck
                pt[pOne][t] + pt[pTwo][t] + pxy[pOne][x][y] + pxy[pTwo][x][y] <= 3;
      
-     // Constraint 4:
-     // Packages cannot go out of the truck
-     // make sure we dont go out of truck in x direction
+	 // Constraint 4:
+	 // Packages cannot go out of the truck
+	 // make sure we dont go out of truck in x direction
 	 forall (p in P)
 	   forall (x in X)
 	     forall (y in Y)
@@ -108,14 +108,14 @@
             	(1 - pxy[p][xOne][yOne])
             	+ 
             	sum (xTwo in (xOne - (package_x[p] - 1)..xOne): xTwo >= 1, 
-            		yTwo in yOne..(yOne + (package_y[p] - 1)): yTwo <= yTruck) pbl[p][xTwo][yTwo] ) >= 1;
+            		yTwo in yOne..(yOne + (package_y[p] - 1)): yTwo <= yTruck) pbl[p][xTwo][yTwo] ) == 1;
      
           
-     // Constraint 9
-     // Set to zero all pxy everywhere where they should not be set
-	 forall (p in P)
-		sum (x in X, y in Y)
-		   pxy[p][x][y] == package_x[p] * package_y[p];	  	 
+	 // Constraint 9
+	 // Set to zero all pxy everywhere where they should not be set
+	 //forall (p in P)
+		//sum (x in X, y in Y)
+		   //pxy[p][x][y] == package_x[p] * package_y[p];	  	 
      
  	 // Constraint 10
  	 // Make sure that usedTruck is set to 1 when we use it
