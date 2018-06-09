@@ -9,6 +9,9 @@ def grasp(cost_function, alpha, greedy_loss_function, max_iterations, input):
   best_cost_solution = math.inf
   best_solution = None
 
+  print("Initiating GRASP...")
+
+
   for k in range(max_iterations):
     #print(f"Running {k} iteration: construct")
     feasible_solution = construct(greedy_loss_function, alpha, input)
@@ -35,4 +38,4 @@ def grasp(cost_function, alpha, greedy_loss_function, max_iterations, input):
 
     print(f"Run {k} iteration!!!")
 
-  return (best_solution, best_cost_solution)
+  return (best_solution, best_cost_solution, None, max_iterations)
