@@ -16,7 +16,6 @@ class Shell():
     filename = f"./experiment_instances_v2/{onlyfiles[int(filename_idx)]}"
 
     question = f"What do you want to do? {linesep} (1): Run GRASP and write results. {linesep} (2): Compute num of constraints. {linesep}"
-    question += f" (3): Tune parameters for greedy cost function. {linesep}"
     question += f"Enter just number 1/2/3:{linesep}>>> "
 
     option = input(question)
@@ -26,8 +25,6 @@ class Shell():
       sys.exit()
     elif option == "1":
       self.run_experiment(filename)
-    elif option == "3":
-      self.tune_params(filename)
     else:
       print(f"Invalid option: {option}")
   def run_grasp(self, filename):
@@ -45,22 +42,6 @@ class Shell():
       max_time_in_seconds = minutes * 60
 
     run_experiment(input_filename = filename, alpha = alpha, max_time_in_seconds = max_time_in_seconds)
-
-  def tune_params(self, filename):
-    alpha = input(f"What alpha to use? Enter number (default 0.8):{linesep}>>> ")
-
-    try:
-      alpha = float(alpha)
-    except ValueError:
-      alpha = 0.8
-
-    max_time_in_seconds = 0
-    minutes = input(f"Time to compute? (in minutes):{linesep}>>> ")
-    if len(minutes) > 0:
-      minutes = float(minutes)
-      max_time_in_seconds = minutes * 60
-
-    tune_params(input_filename = filename, alpha = alpha, max_time_in_seconds = max_time_in_seconds)
 
   def run_experiment(self, filename):
     alpha = input(f"What alpha to use? Enter number (default 0.8):{linesep}>>> ")

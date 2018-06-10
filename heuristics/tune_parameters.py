@@ -2,7 +2,7 @@ import json
 
 from grasp import grasp
 from cost_function import problem_cost_function
-from greedy_loss_function import greedy_loss_function, greedy_loss_function_2
+from greedy_cost_function import greedy_cost_function
 from grasp_time import grasp_by_max_time
 import time, threading
 
@@ -38,83 +38,95 @@ params = [
 ]
 
 params_v2_1 = {
-  'cost_already_assigned_truck': -300,
-  'cost_for_possible_truck_assignment': 100,
-  'cost_for_size_of_package': -10,
-  'cost_for_package_weight': 0,
+  'cost_already_assigned_truck': -400,
+  'cost_for_possible_pbl_truck_assignment': 100,
+  'cost_for_possible_truck_assignment': -20,
+  'cost_for_size_of_package': -15,
+  'cost_for_package_weight': -3,
   'cost_for_capacity_left': 20,
-  'capacity_v1': True
+  'capacity_v1': False
 }
 
 params_v2_2 = {
   'cost_already_assigned_truck': -400,
-  'cost_for_possible_truck_assignment': 100,
-  'cost_for_size_of_package': -10,
-  'cost_for_package_weight': -1,
+  'cost_for_possible_pbl_truck_assignment': 100,
+  'cost_for_possible_truck_assignment': -10,
+  'cost_for_size_of_package': -15,
+  'cost_for_package_weight': -3,
   'cost_for_capacity_left': 20,
-  'capacity_v1': True
+  'capacity_v1': False
 }
 
 params_v2_3 = {
   'cost_already_assigned_truck': -400,
-  'cost_for_possible_truck_assignment': 100,
+  'cost_for_possible_pbl_truck_assignment': 0,
+  'cost_for_possible_truck_assignment': -10,
   'cost_for_size_of_package': -15,
-  'cost_for_package_weight': -1,
+  'cost_for_package_weight': -3,
   'cost_for_capacity_left': 20,
-  'capacity_v1': True
+  'capacity_v1': False
 }
 
 params_v2_4 = {
-  'cost_already_assigned_truck': -500,
-  'cost_for_possible_truck_assignment': 100,
-  'cost_for_size_of_package': -20,
+  'cost_already_assigned_truck': -400,
+  'cost_for_possible_pbl_truck_assignment': 100,
+  'cost_for_possible_truck_assignment': 0,
+  'cost_for_size_of_package': -15,
   'cost_for_package_weight': -3,
   'cost_for_capacity_left': 20,
-  'capacity_v1': True
+  'capacity_v1': False
 }
 params_v2_5 = {
-  'cost_already_assigned_truck': -300,
-  'cost_for_possible_truck_assignment': -10,
-  'cost_for_size_of_package': -10,
-  'cost_for_package_weight': 0,
+  'cost_already_assigned_truck': -400,
+  'cost_for_possible_pbl_truck_assignment': 100,
+  'cost_for_possible_truck_assignment': 10,
+  'cost_for_size_of_package': -15,
+  'cost_for_package_weight': -3,
   'cost_for_capacity_left': 20,
   'capacity_v1': False
 }
 params_v2_6 = {
-  'cost_already_assigned_truck': -400,
-  'cost_for_possible_truck_assignment': -20,
+  'cost_already_assigned_truck': -50,
+  'cost_for_possible_pbl_truck_assignment': -30,
+  'cost_for_possible_truck_assignment': 40,
   'cost_for_size_of_package': -15,
-  'cost_for_package_weight': -1,
+  'cost_for_package_weight': -3,
   'cost_for_capacity_left': 20,
   'capacity_v1': False
 }
 params_v2_7 = {
-  'cost_already_assigned_truck': -400,
-  'cost_for_possible_truck_assignment': 100,
-  'cost_for_size_of_package': -10,
-  'cost_for_package_weight': -1,
-  'cost_for_capacity_left': 20,
-  'capacity_v1': True
-}
-params_v2_8 = {
-  'cost_already_assigned_truck': -400,
-  'cost_for_possible_truck_assignment': 300,
-  'cost_for_size_of_package': -15,
-  'cost_for_package_weight': -3,
-  'cost_for_capacity_left': 20,
-  'capacity_v1': True
-}
-params_v2_9 = {
-  'cost_already_assigned_truck': -400,
-  'cost_for_possible_truck_assignment': 50,
+  'cost_already_assigned_truck': -50,
+  'cost_for_possible_pbl_truck_assignment': -30,
+  'cost_for_possible_truck_assignment': 40,
   'cost_for_size_of_package': -15,
   'cost_for_package_weight': -3,
   'cost_for_capacity_left': 20,
   'capacity_v1': False
 }
+params_v2_8 = {
+  'cost_already_assigned_truck': -50,
+  'cost_for_possible_pbl_truck_assignment': -30,
+  'cost_for_possible_truck_assignment': 40,
+  'cost_for_size_of_package': -15,
+  'cost_for_package_weight': -3,
+  'cost_for_capacity_left': 20,
+  'capacity_v1': False
+}
+
+params_v2_9 = {
+  'cost_already_assigned_truck': -50,
+  'cost_for_possible_pbl_truck_assignment': -30,
+  'cost_for_possible_truck_assignment': 40,
+  'cost_for_size_of_package': -15,
+  'cost_for_package_weight': -3,
+  'cost_for_capacity_left': 20,
+  'capacity_v1': False
+}
+
 params_v2_10 = {
   'cost_already_assigned_truck': -400,
-  'cost_for_possible_truck_assignment': 100,
+  'cost_for_possible_pbl_truck_assignment': 100,
+  'cost_for_possible_truck_assignment': 0,
   'cost_for_size_of_package': -15,
   'cost_for_package_weight': -3,
   'cost_for_capacity_left': 20,
@@ -127,13 +139,12 @@ params_v2 = [
   # params_v2_3,
   # params_v2_4, # 10
   # params_v2_5, # 8
-  # params_v2_6, # 15
-  # params_v2_7, # 10
-  # params_v2_8, # 8
-  # params_v2_9, # 15
-  params_v2_10, # 10
+  params_v2_6, # 15
+  params_v2_7, # 10
+  params_v2_8, # 8
+  params_v2_9, # 15
+  params_v2_10 # 10
 ]
-
 
 def tune_params(input_filename, alpha = 0.8, max_time_in_seconds = 60):
   with open(input_filename) as file_handle:
@@ -148,7 +159,7 @@ def tune_params(input_filename, alpha = 0.8, max_time_in_seconds = 60):
     data["time_start"] = time.time()
     data["max_time"] = max_time_in_seconds
 
-    best_solution, best_cost_solution, time_computing, iterations = grasp_by_max_time(problem_cost_function, alpha, greedy_loss_function_2, max_time_in_seconds, data, params_glf = param)
+    best_solution, best_cost_solution, time_computing, iterations = grasp_by_max_time(problem_cost_function, alpha, greedy_cost_function, max_time_in_seconds, data, params_glf = param)
 
     print(f"Best cost of solution is {best_cost_solution}")
     print(f"Time computing: {time_computing}s")

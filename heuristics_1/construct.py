@@ -82,7 +82,7 @@ def initialize_candidate_set(input, solution):
   return pt
 
 
-def get_element_loss_range(greedy_loss_function, input, solution, candidate_set, params_glf = None):
+def get_element_loss_range(greedy_cost_function, input, solution, candidate_set, params_glf = None):
   precomputed_greedy_cost_package_truck = np.repeat(-math.inf, (input["pLength"] * input["tLength"])).reshape(input["pLength"], input["tLength"])
 
   possible_assignments = np.where(candidate_set == 1)
@@ -94,7 +94,7 @@ def get_element_loss_range(greedy_loss_function, input, solution, candidate_set,
     p = possible_assignments[0][possible_assignment_idx]
     t = possible_assignments[1][possible_assignment_idx]
 
-    precomputed_greedy_cost_package_truck[p,t] = greedy_loss_function(input, solution, (p, t), params_glf)
+    precomputed_greedy_cost_package_truck[p,t] = greedy_cost_function(input, solution, (p, t), candidate_set, params_glf)
 
     if min is None or precomputed_greedy_cost_package_truck[p,t] < min:
       min = precomputed_greedy_cost_package_truck[p,t]
@@ -117,12 +117,12 @@ def get_candidate_solutions(min, max, precomputed_cost, alpha):
 
   return possible_solutions
 
-def try_to_construct_solution(greedy_loss_function, alpha, input, params_glf = None):
+def try_to_construct_solution(greedy_cost_function, alpha, input, params_glf = None):
   solution = initialize_solution(input)
   candidate_set = initialize_candidate_set(input, solution)
 
   while len(np.where(candidate_set == 1)[0]) > 0:
-    min, max, precomputed_cost = get_element_loss_range(greedy_loss_function, input, solution, candidate_set, params_glf)
+    min, max, precomputed_cost = get_element_loss_range(greedy_cost_function, input, solution, candidate_set, params_glf)
 
     candidate_solutions = get_candidate_solutions(min, max, precomputed_cost, alpha)
     new_element_solution = random_select(candidate_solutions)
@@ -134,13 +134,13 @@ def try_to_construct_solution(greedy_loss_function, alpha, input, params_glf = N
   return solution
 
 
-def construct(greedy_loss_function, alpha, input, params_gcf = None):
+def construct(greedy_cost_function, alpha, input, params_gcf = None):
   feasible_solution_obtained = False
 
   infeasible_solutions_achieved = -1
   
   while not feasible_solution_obtained:
-    solution = try_to_construct_solution(greedy_loss_function, alpha, input, params_gcf)
+    solution = try_to_construct_solution(greedy_cost_function, alpha, input, params_gcf)
 
     number_of_trucks_assigned_to_package = solution['pt'].sum(axis = 1)
 

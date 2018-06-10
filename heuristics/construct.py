@@ -103,7 +103,7 @@ def get_element_loss_range(greedy_loss_function, input, solution, candidate_set,
     p = possible_assignments[0][possible_assignment_idx]
     t = possible_assignments[1][possible_assignment_idx]
 
-    precomputed_greedy_cost_package_truck[p,t] = greedy_loss_function(input, solution, (p, t), params_glf)
+    precomputed_greedy_cost_package_truck[p,t] = greedy_loss_function(input, solution, (p, t), candidate_set, params_glf)
 
     if min is None or precomputed_greedy_cost_package_truck[p,t] < min:
       min = precomputed_greedy_cost_package_truck[p,t]
@@ -130,8 +130,6 @@ def try_to_construct_solution(greedy_loss_function, alpha, input, params_glf = N
   solution = initialize_solution(input)
   candidate_set = initialize_candidate_set(input, solution)
 
-  debug_assignments = []
-
   while len(np.where(candidate_set == 1)[0]) > 0:
     min, max, precomputed_cost = get_element_loss_range(greedy_loss_function, input, solution, candidate_set, params_glf)
 
@@ -141,13 +139,6 @@ def try_to_construct_solution(greedy_loss_function, alpha, input, params_glf = N
     add_new_solution(input, solution, new_element_solution)
 
     candidate_set = update_candidate_set(input, solution, candidate_set, new_element_solution)
-    debug_assignments += [{
-      'added': new_element_solution,
-      'possible_assignments': np.where(candidate_set == 1)
-    }]
-
-  with open('debug.txt', 'w') as myfile:
-    myfile.write(debug_assignments)
 
   return solution
 

@@ -8,8 +8,11 @@ def compute_num_of_constraints_from_input(input):
   truck_x = input['xTruck']
   truck_y = input['yTruck']
 
+  # Objective function
+  constraints = 1
+
   # Constraint 1
-  constraints = t_length
+  constraints += t_length
   
   # Constraint 2
   constraints += p_length

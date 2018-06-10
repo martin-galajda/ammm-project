@@ -14,8 +14,9 @@ def get_first_possible_pbl(input, solution, package, truck):
   while new_pbl_for_package is None and x_start_offset <= (x_truck - package_width):
     y_start_offset = y_truck - 1
     while new_pbl_for_package is None and y_start_offset >= (0 + package_height):
-      out_of_range_x = (x_start_offset + package_width) >= x_truck
-      out_of_range_y = (y_start_offset - package_height) < 0
+      out_of_range_x = (x_start_offset + package_width) > x_truck
+      out_of_range_y = (y_start_offset - package_height) < -1
+
       point_can_be_new_pbl = not (out_of_range_x or out_of_range_y)
 
       if not point_can_be_new_pbl:
