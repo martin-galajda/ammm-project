@@ -14,3 +14,6 @@ We solve problems using 2 different approaches:
 - using heuristics (specifically GRASP with local search)
 
 We compare results from both approaches and conclude that even though heuristics do not converge to global optimum, they are significantly faster than CPLEX studio for bigger problem instances (more packages / trucks).
+
+## Report
+If you are interested, you can read more details [here](ammm-project-report.pdf).
